@@ -1,0 +1,108 @@
+Directory Structure
+        * src contains the source code
+        * raw_data contains the source mat file
+        * dataset contains the images and labels CSV file
+
+Files in dataset
+        * raw_images contains the extracted images
+        * greyscale_images contains the images converted to single channel greyscale images
+        * gabor_horizontal_images contains the images after horizontal gabor filter
+        * gabor_vertical_images contains the images after veritcal gabor filter
+        * laplacian_images contains the images after laplacian filter
+        * sobelx_images contains the images after sobelx filter
+        * sobely_images contains the images after sobely filter
+        * sobelxy_images contains the images after sobelxy filter
+        * canny_images contains the images after canny edge detection
+
+Code files in src:
+        * preprocess/extract.py extracts the images form the .mat file present in raw_data and dumps them to raw_images. It also create a CSV file which
+          has the image name and its corresponding label.
+        * preprocess/greyscale.py processes the images form raw_images, converts them to greyscale, and stores them to greyscale_images. It retains the
+          name of the image.
+        * preprocess/gabor_horizontal.py processes the images form raw_images with gabor filter in the horizontal direction and stores them to
+          gabor_horizontal_images. It retains the name of the image.
+        * preprocess/gabor_vertical.py processes the images form raw_images with gabor filter in the vertical direction and stores them to
+          gabor_vertical_images. It retains the name of the image.
+        * preprocess/laplacian.py processes the images form raw_images with laplacian filter and stores them to laplacian_images. It retains the name
+          of the image.
+        * preprocess/sobelx.py processes the images form raw_images with sobelx filter and stores them to sobelx_images. It retains the name of the image.
+        * preprocess/sobely.py processes the images form raw_images with sobely filter and stores them to sobely_images. It retains the name of the image.
+        * preprocess/sobelxy.py processes the images form raw_images with sobelxy filter and stores them to sobelxy_images. It retains the name of the image.
+        * preprocess/canny.py processes the images form raw_images with canny edge detection and stores them to canny_images. It retains the name of the image.
+        * baseline/raw/network.py contains the custom neural network used for training on raw_images.
+        * baseline/raw/train_and_test.py contains code used for training and testing the neural network on raw_images.
+        * baseline/greyscale/network.py contains the custom neural network used for training on greyscale_images.
+        * baseline/greyscale/train_and_test.py contains code used for training and testing the neural network on greyscale_images.
+        * baseline/gabor_horizontal/network.py contains the custom neural network used for training on gabor_horizontal_images.
+        * baseline/gabor_horizontal/train_and_test.py contains code used for training and testing the neural network on gabor_horizontal_images.
+        * baseline/gabor_vertical/network.py contains the custom neural network used for training on gabor_vertical_images.
+        * baseline/gabor_vertical/train_and_test.py contains code used for training and testing the neural network on gabor_vertical_images.
+        * baseline/laplacian/network.py contains the custom neural network used for training on laplacian_images.
+        * baseline/laplacian/train_and_test.py contains code used for training and testing the neural network on laplacian_images.
+        * baseline/sobelx/network.py contains the custom neural network used for training on sobelx_images.
+        * baseline/sobelx/train_and_test.py contains code used for training and testing the neural network on sobelx_images.
+        * baseline/sobely/network.py contains the custom neural network used for training on sobely_images.
+        * baseline/sobely/train_and_test.py contains code used for training and testing the neural network on sobely_images.
+        * baseline/sobelxy/network.py contains the custom neural network used for training on sobelxy_images.
+        * baseline/sobelxy/train_and_test.py contains code used for training and testing the neural network on sobelxy_images.
+        * baseline/canny/network.py contains the custom neural network used for training on canny_images.
+        * baseline/canny/train_and_test.py contains code used for training and testing the neural network on canny_images.
+        * combined/network.py contains the custom neural network used for training on images with 7 channels
+          [gabor_horizontal, gabor_vertical, laplacian, sobelx, sobely, sobelxy, canny].
+        * combined/train_and_test.py contains code used for training and testing the neural network on images with 7 channels
+          [gabor_horizontal, gabor_vertical, laplacian, sobelx, sobely, sobelxy, canny].
+
+References:
+        * https://www.geeksforgeeks.org/python-opencv-cv2-imwrite-method/
+        * https://docs.python.org/3/library/csv.html
+        * https://www.youtube.com/watch?v=QEz4bG9P3Qs
+        * https://www.geeksforgeeks.org/python-opencv-filter2d-function/
+        * https://stackoverflow.com/questions/59218671/runtimeerror-output-with-shape-1-224-224-doesnt-match-the-broadcast-shape
+        * https://learnopencv.com/edge-detection-using-opencv/#canny-edge
+        * https://docs.opencv.org/3.4/da/d22/tutorial_py_canny.html
+        * https://learnopencv.com/edge-detection-using-opencv/
+        * https://docs.opencv.org/3.4/d5/db5/tutorial_laplace_operator.html
+        * https://numpy.org/doc/stable/reference/generated/numpy.expand_dims.html
+        * https://numpy.org/doc/stable/reference/generated/numpy.append.html
+        * https://numpy.org/doc/stable/reference/generated/numpy.moveaxis.html
+
+Dependencies:
+        * opencv
+        * scipy
+        * csv
+        * numpy
+        * matplotlib
+        * sklearn
+        * sklearnex
+        * torch
+        * torchvision
+        * sys
+        * os
+        * multiprocessing
+        * wandb
+
+Parameters:
+        * Gabor filters:
+                kernel size => 10x10
+                sigma => 1
+                theta => pi/2 (horizontal) or pi (vertical)
+                lamda => pi * 1.1
+                gamma => 0.5
+                phi => 0.5
+        * Canny edge
+                lower_threshold => 100
+                higher_threshold => 150
+        * Sobel
+        	 Preprocessing: Gaussian Blurr to reduce noise
+        	 Kernel Size => 3x3
+        * Laplacian
+                Preprocessing: Gaussian Blurr to reduce noise
+        	 Kernel Size => 3x3
+
+How to populate empty directories:
+        * Download the train_32x32.mat file from the googlr drive link mentioned below and add that file to raw_data directory
+        * Run the preprocessing scripts to populate the datasets directory
+        * Now you should be able to run the models
+        * Note that the trained models are also available on the google drive. You will have to rename them to "Net.pt" before you can use them.
+
+Drive link: https://drive.google.com/drive/folders/1qC7GQWoFp9Oko-U06pLPvbeLfC_SF34q?usp=sharing
